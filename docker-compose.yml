@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+    discovery-service:
+        build:
+            context: ./discovery-service
+        image: mihajlonesic/betbull:discovery-service
+        container_name: discovery-service
+        env_file:
+            - .env
+        networks:
+            - betbull-network
+        ports:
+            - ${DISCOVERY_PORT}:8761
+
+    gateway-service:
+        build:
+            context: ./gateway-service
+        image: mihajlonesic/betbull:gateway-service
+        container_name: gateway-service
+        env_file:
+            - .env
+        depends_on:
+            - discovery-service
+        networks:
+            - betbull-network
+        ports:
+            - ${GATEWAY_PORT}:8080
+        links:
+            - discovery-service
+
+    player-team-service:
+        build:
+            context: ./player-team-service
+        image: mihajlonesic/betbull:player-team-service
+        container_name: player-team-service
+        env_file:
+            - .env
+        depends_on:
+            - discovery-service
+            - playermarket-postgres
+        networks:
+            - betbull-network
+        ports:
+            - ${PLAYER_TEAM_PORT}:8082
+        links:
+            - playermarket-postgres
+            - discovery-service
+
+    transfer-service:
+        build:
+            context: ./transfer-service
+        image: mihajlonesic/betbull:transfer-service
+        container_name: transfer-service
+        env_file:
+            - .env
+        depends_on:
+            - discovery-service
+            - playermarket-postgres
+        networks:
+            - betbull-network
+        ports:
+            - ${TRANSFER_PORT}:8083
+        links:
+            - playermarket-postgres
+            - discovery-service
+
+    playermarket-postgres:
+        image: "postgres:12.5"
+        container_name: playermarket-postgres
+        env_file:
+            - .env
+        networks:
+            - betbull-network
+        volumes:
+            - playermarket-postgres-data:/var/lib/postgresql/data/
+        ports:
+            - ${POSTGRES_PORT}:5432
+
+networks:
+    betbull-network:
+        name: betbull-network
+
+volumes:
+    playermarket-postgres-data:
+        name: playermarket-postgres-data

@@ -1,0 +1,28 @@
+server.port: 8082
+
+spring:
+    application:
+        name: player-team-service
+    output.ansi.enabled: ALWAYS
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://${POSTGRES_URL}/${POSTGRES_DB}?currentSchema=${PLAYER_TEAM_DB_SCHEMA}
+        username: ${POSTGRES_USER}
+        password: ${POSTGRES_PASSWORD}
+        hikari:
+            connectionTimeout: 15000 # in ms
+            maxLifetime: 30000 # in ms
+    flyway:
+        enabled: true
+        url: jdbc:postgresql://${POSTGRES_URL}/${POSTGRES_DB}?currentSchema=${PLAYER_TEAM_DB_SCHEMA}
+        user: ${POSTGRES_USER}
+        password: ${POSTGRES_PASSWORD}
+        baseline-on-migrate: true
+
+eureka.client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://${DISCOVERY_URL}:${DISCOVERY_PORT}/eureka
+
+logging.level.org.hibernate.SQL: DEBUG
