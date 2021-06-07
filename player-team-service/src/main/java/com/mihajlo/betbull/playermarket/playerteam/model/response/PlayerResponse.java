@@ -10,6 +10,7 @@ public class PlayerResponse {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private LocalDate careerStartDate;
 
     public PlayerResponse() {
     }
@@ -19,6 +20,7 @@ public class PlayerResponse {
         this.firstName = player.getFirstName();
         this.lastName = player.getLastName();
         this.birthDate = player.getBirthDate();
+        this.careerStartDate = player.getCareerStartDate();
     }
 
     public Long getId() {
@@ -51,5 +53,13 @@ public class PlayerResponse {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public LocalDate getCareerStartDate() {
+        return careerStartDate;
+    }
+
+    public void setCareerStartDate(LocalDate careerStartDate) {
+        this.careerStartDate = careerStartDate;
     }
 }

@@ -15,9 +15,7 @@ public class Player {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Team currentTeam;
+    private LocalDate careerStartDate;
 
     @Enumerated(EnumType.STRING)
     private PlayerStatus status;
@@ -26,11 +24,12 @@ public class Player {
     public Player() {
     }
 
-    public static Player create(String firstName, String lastName, LocalDate birthDate) {
+    public static Player create(String firstName, String lastName, LocalDate birthDate, LocalDate careerStartDate) {
         Player player = new Player();
         player.setFirstName(firstName);
         player.setLastName(lastName);
         player.setBirthDate(birthDate);
+        player.setCareerStartDate(careerStartDate);
         player.setStatus(PlayerStatus.ACTIVE);
         return player;
     }
@@ -67,12 +66,12 @@ public class Player {
         this.birthDate = birthDate;
     }
 
-    public Team getCurrentTeam() {
-        return currentTeam;
+    public LocalDate getCareerStartDate() {
+        return careerStartDate;
     }
 
-    public void setCurrentTeam(Team currentTeam) {
-        this.currentTeam = currentTeam;
+    public void setCareerStartDate(LocalDate careerStartDate) {
+        this.careerStartDate = careerStartDate;
     }
 
     public PlayerStatus getStatus() {

@@ -28,6 +28,12 @@ public class TeamController {
         return ResponseEntity.ok(teamService.getAllActivePage(page, size));
     }
 
+    @GetMapping(value = Path.TEAM_SINGLE)
+    @ApiOperation("Returns a team by ID")
+    public ResponseEntity<TeamResponse> getTeam(@PathVariable("teamId") Long teamId) {
+        return ResponseEntity.ok(teamService.getTeam(teamId));
+    }
+
     @PostMapping(value = Path.TEAMS)
     @ApiOperation("Creates a new team")
     public ResponseEntity<TeamResponse> createTeam(@RequestBody CreateTeamRequest request) {

@@ -11,6 +11,7 @@ import java.util.List;
 public interface PlayerService extends CrudService<Player, Long> {
     List<PlayerResponse> getAllActive();
     Page<PlayerResponse> getAllActivePage(int page, int size);
+    PlayerResponse getPlayer(Long id);
     PlayerResponse createPlayer(CreatePlayerRequest request);
     PlayerResponse updatePlayer(Long playerId, UpdatePlayerRequest request);
 }

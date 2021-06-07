@@ -15,13 +15,7 @@ CREATE TABLE player
     first_name         VARCHAR(127) NOT NULL,
     last_name          VARCHAR(255) NOT NULL,
     birth_date         DATE         NOT NULL,
-    current_team_id    BIGINT,
+    career_start_date  DATE         NOT NULL,
     status             VARCHAR(127) NOT NULL,
     CONSTRAINT pk_player PRIMARY KEY (id)
 );
-
-ALTER TABLE player
-    ADD CONSTRAINT fk_player_current_team
-        FOREIGN KEY (current_team_id)
-            REFERENCES team (id)
-            ON UPDATE RESTRICT ON DELETE RESTRICT;

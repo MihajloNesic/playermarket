@@ -28,6 +28,12 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getAllActivePage(page, size));
     }
 
+    @GetMapping(value = Path.PLAYER_SINGLE)
+    @ApiOperation("Returns a player by ID")
+    public ResponseEntity<PlayerResponse> getPlayer(@PathVariable("playerId") Long playerId) {
+        return ResponseEntity.ok(playerService.getPlayer(playerId));
+    }
+
     @PostMapping(value = Path.PLAYERS)
     @ApiOperation("Creates a new player")
     public ResponseEntity<PlayerResponse> createPlayer(@RequestBody CreatePlayerRequest request) {

@@ -63,6 +63,12 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public TeamResponse getTeam(Long teamId) {
+        Team team = getById(teamId);
+        return new TeamResponse(team);
+    }
+
+    @Override
     public Team save(Team team) {
         return teamRepository.save(team);
     }

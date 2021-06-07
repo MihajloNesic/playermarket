@@ -64,6 +64,12 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public PlayerResponse getPlayer(Long id) {
+        Player player = getById(id);
+        return new PlayerResponse(player);
+    }
+
+    @Override
     public Player save(Player player) {
         return playerRepository.save(player);
     }
@@ -91,16 +97,18 @@ public class PlayerServiceImpl implements PlayerService {
         Preconditions.checkNotNull(request.getBirthDate(), "Player's birth date is required");
 
         LocalDate playerBirthDate = null;
+        LocalDate careerStartDate = null;
 
         try {
             playerBirthDate = LocalDate.parse(request.getBirthDate());
+            careerStartDate = LocalDate.parse(request.getCareerStartDate());
         }
         catch (DateTimeParseException ex) {
             LOGGER.info("Could not parse date = {}", request.getBirthDate());
             throw new InputException("You've entered an invalid date. Please enter date in format 'YYYY-MM-DD'");
         }
 
-        Player playerModel = Player.create(request.getFirstName(), request.getLastName(), playerBirthDate);
+        Player playerModel = Player.create(request.getFirstName(), request.getLastName(), playerBirthDate, careerStartDate);
         LOGGER.info("Creating player");
         Player newPlayer = save(playerModel);
         LOGGER.info("Player with name = {} has been created, id = {}", newPlayer.getFirstName(), newPlayer.getId());
@@ -116,9 +124,11 @@ public class PlayerServiceImpl implements PlayerService {
         Preconditions.checkNotNull(request.getBirthDate(), "Player's birth date is required");
 
         LocalDate playerBirthDate = null;
+        LocalDate careerStartDate = null;
 
         try {
             playerBirthDate = LocalDate.parse(request.getBirthDate());
+            careerStartDate = LocalDate.parse(request.getCareerStartDate());
         }
         catch (DateTimeParseException ex) {
             LOGGER.info("Could not parse date = {}", request.getBirthDate());
@@ -129,6 +139,7 @@ public class PlayerServiceImpl implements PlayerService {
         player.setFirstName(request.getFirstName());
         player.setLastName(request.getLastName());
         player.setBirthDate(playerBirthDate);
+        player.setCareerStartDate(careerStartDate);
         Player updatedPlayer = save(player);
         LOGGER.info("Player with id = {} has been updated", updatedPlayer.getId());
 
