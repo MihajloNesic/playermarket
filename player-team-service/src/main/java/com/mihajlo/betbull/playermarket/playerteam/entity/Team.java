@@ -25,15 +25,6 @@ public class Team {
     public Team() {
     }
 
-    @Deprecated
-    public Team(Long id, String name, Double commissionPercentage, Currency currency) {
-        this.id = id;
-        this.name = name;
-        this.commissionPercentage = commissionPercentage;
-        this.currency = currency;
-        this.status = TeamStatus.ACTIVE;
-    }
-
     public static Team create(String name, Double commissionPercentage, Currency currency) {
         Team team = new Team();
         team.setName(name);

@@ -8,13 +8,16 @@ import com.mihajlo.betbull.playermarket.playerteam.exception.error.InputExceptio
 import com.mihajlo.betbull.playermarket.playerteam.model.request.CreateTeamRequest;
 import com.mihajlo.betbull.playermarket.playerteam.model.request.UpdateTeamRequest;
 import com.mihajlo.betbull.playermarket.playerteam.model.response.TeamResponse;
+import com.mihajlo.betbull.playermarket.playerteam.model.spec.TeamSpecifications;
 import com.mihajlo.betbull.playermarket.playerteam.repository.TeamRepository;
 import com.mihajlo.betbull.playermarket.playerteam.service.TeamService;
 import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,8 +41,10 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Page<TeamResponse> getAllActivePage(Pageable pageable) {
-        return teamRepository.findAll(pageable).map(TeamResponse::new);
+    public Page<TeamResponse> getAllActivePage(int page, int size) {
+        Sort sort = Sort.by("name");
+        Pageable pagingParams = PageRequest.of(page, size, sort);
+        return teamRepository.findAll(TeamSpecifications.isActive(), pagingParams).map(TeamResponse::new);
     }
 
     @Override
