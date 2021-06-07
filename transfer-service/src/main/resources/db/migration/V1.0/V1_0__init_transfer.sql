@@ -9,7 +9,6 @@ CREATE TABLE transfer
     team_commission        NUMERIC(12,2) NOT NULL,
     contract_fee           NUMERIC(12,2) NOT NULL,
     currency               VARCHAR(3)    NOT NULL,
-    end_date               DATE          NOT NULL,
     status                 VARCHAR(127)  NOT NULL,
     CONSTRAINT pk_transfer PRIMARY KEY (id)
 );
