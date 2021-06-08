@@ -11,6 +11,7 @@ import com.mihajlo.betbull.playermarket.playerteam.model.response.TeamResponse;
 import com.mihajlo.betbull.playermarket.playerteam.model.spec.TeamSpecifications;
 import com.mihajlo.betbull.playermarket.playerteam.repository.TeamRepository;
 import com.mihajlo.betbull.playermarket.playerteam.service.TeamService;
+import com.mihajlo.betbull.playermarket.playerteam.service.feign.TransferFeignService;
 import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,11 @@ public class TeamServiceImpl implements TeamService {
     public static final Logger LOGGER = LoggerFactory.getLogger(TeamServiceImpl.class);
 
     private TeamRepository teamRepository;
+    private TransferFeignService transferFeignService;
 
-    public TeamServiceImpl(TeamRepository teamRepository) {
+    public TeamServiceImpl(TeamRepository teamRepository, TransferFeignService transferFeignService) {
         this.teamRepository = teamRepository;
+        this.transferFeignService = transferFeignService;
     }
 
     @Override
@@ -77,6 +80,7 @@ public class TeamServiceImpl implements TeamService {
     public void delete(Team team) {
         team.setStatus(TeamStatus.DELETED);
         teamRepository.save(team);
+        transferFeignService.deleteByTeamId(team.getId());
     }
 
     @Override
@@ -86,6 +90,7 @@ public class TeamServiceImpl implements TeamService {
         Team team = getById(id);
         team.setStatus(TeamStatus.DELETED);
         teamRepository.save(team);
+        transferFeignService.deleteByTeamId(id);
         LOGGER.info("Team with id = {} has been deleted (flagged)", id);
     }
 

@@ -10,6 +10,7 @@ import com.mihajlo.betbull.playermarket.playerteam.model.response.PlayerResponse
 import com.mihajlo.betbull.playermarket.playerteam.model.spec.PlayerSpecifications;
 import com.mihajlo.betbull.playermarket.playerteam.repository.PlayerRepository;
 import com.mihajlo.betbull.playermarket.playerteam.service.PlayerService;
+import com.mihajlo.betbull.playermarket.playerteam.service.feign.TransferFeignService;
 import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,11 @@ public class PlayerServiceImpl implements PlayerService {
     public static final Logger LOGGER = LoggerFactory.getLogger(PlayerServiceImpl.class);
 
     private PlayerRepository playerRepository;
+    private TransferFeignService transferFeignService;
 
-    public PlayerServiceImpl(PlayerRepository playerRepository) {
+    public PlayerServiceImpl(PlayerRepository playerRepository, TransferFeignService transferFeignService) {
         this.playerRepository = playerRepository;
+        this.transferFeignService = transferFeignService;
     }
 
     @Override
@@ -78,6 +81,7 @@ public class PlayerServiceImpl implements PlayerService {
     public void delete(Player player) {
         player.setStatus(PlayerStatus.DELETED);
         playerRepository.save(player);
+        transferFeignService.deleteByPlayerId(player.getId());
     }
 
     @Override
@@ -87,6 +91,7 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = getById(id);
         player.setStatus(PlayerStatus.DELETED);
         playerRepository.save(player);
+        transferFeignService.deleteByPlayerId(id);
         LOGGER.info("Player with id = {} has been deleted (flagged)", id);
     }
 

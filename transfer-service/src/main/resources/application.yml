@@ -6,7 +6,7 @@ spring:
     output.ansi.enabled: ALWAYS
     datasource:
         driver-class-name: org.postgresql.Driver
-        url: jdbc:postgresql://${POSTGRES_URL}/${POSTGRES_DB}?currentSchema=${TRANSFER_DB_SCHEMA}
+        url: jdbc:postgresql://${POSTGRES_URL}:${POSTGRES_PORT}/${POSTGRES_DB}?currentSchema=${TRANSFER_DB_SCHEMA}
         username: ${POSTGRES_USER}
         password: ${POSTGRES_PASSWORD}
         hikari:
@@ -14,15 +14,18 @@ spring:
             maxLifetime: 30000 # in ms
     flyway:
         enabled: true
-        url: jdbc:postgresql://${POSTGRES_URL}/${POSTGRES_DB}?currentSchema=${TRANSFER_DB_SCHEMA}
+        url: jdbc:postgresql://${POSTGRES_URL}:${POSTGRES_PORT}/${POSTGRES_DB}?currentSchema=${TRANSFER_DB_SCHEMA}
         user: ${POSTGRES_USER}
         password: ${POSTGRES_PASSWORD}
         baseline-on-migrate: true
 
-eureka.client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-        defaultZone: http://${DISCOVERY_URL}:${DISCOVERY_PORT}/eureka
+eureka:
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://${DISCOVERY_URL}:${DISCOVERY_PORT}/eureka
+    instance:
+        preferIpAddress: true
 
 logging.level.org.hibernate.SQL: DEBUG

@@ -17,5 +17,9 @@ public class Path {
 
     // Transfer
     public static final String TRANSFER = "/transfer";
+    public static final String TRANSFER_ID = "{transferId}";
+    public static final String TRANSFER_SINGLE = TRANSFER + "/" + TRANSFER_ID;
     public static final String PLAYER_TRANSFER = PLAYER_SINGLE + TRANSFER;
+    public static final String PLAYER_TRANSFER_SINGLE = PLAYER_TRANSFER + "/" + TRANSFER_ID;
+    public static final String TEAM_TRANSFER = TEAM_SINGLE + TRANSFER;
 }

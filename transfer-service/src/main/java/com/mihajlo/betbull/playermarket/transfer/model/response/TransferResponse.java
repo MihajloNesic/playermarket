@@ -2,6 +2,7 @@ package com.mihajlo.betbull.playermarket.transfer.model.response;
 
 import com.mihajlo.betbull.playermarket.transfer.entity.Transfer;
 import com.mihajlo.betbull.playermarket.transfer.entity.domain.Currency;
+import com.mihajlo.betbull.playermarket.transfer.entity.domain.TransferStatus;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,7 @@ public class TransferResponse {
     private Double teamCommission;
     private Double contractFee;
     private Currency currency;
+    private TransferStatus status;
 
     public TransferResponse() {
     }
@@ -30,6 +32,7 @@ public class TransferResponse {
         this.teamCommission = transfer.getTeamCommission();
         this.contractFee = transfer.getContractFee();
         this.currency = transfer.getCurrency();
+        this.status = transfer.getStatus();
     }
 
     public Long getTransferId() {
@@ -102,5 +105,13 @@ public class TransferResponse {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public TransferStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TransferStatus status) {
+        this.status = status;
     }
 }

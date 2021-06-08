@@ -46,6 +46,17 @@ public class Transfer {
         return transfer;
     }
 
+    public Transfer update(TeamResponse team, LocalDate transferDate, Double transferFee, Double teamCommission, Double contractFee) {
+        this.setTeamId(team.getId());
+        this.setTransferDate(transferDate);
+        this.setTransferFee(transferFee);
+        this.setCommissionPercentage(team.getCommissionPercentage());
+        this.setTeamCommission(teamCommission);
+        this.setContractFee(contractFee);
+        this.setCurrency(team.getCurrency());
+        return this;
+    }
+
     public Long getId() {
         return id;
     }

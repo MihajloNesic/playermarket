@@ -1,6 +1,14 @@
 server.port: 8761
-spring.application.name: discovery-service
 
-eureka.client:
-    registerWithEureka: false
-    fetchRegistry: false
+spring:
+    application.name: discovery-service
+    output.ansi.enabled: ALWAYS
+
+eureka:
+    instance:
+        hostname: ${DISCOVERY_URL}
+    client:
+        registerWithEureka: false
+        fetchRegistry: false
+        serviceUrl:
+            defaultZone: http://${DISCOVERY_URL}:${DISCOVERY_PORT}/eureka

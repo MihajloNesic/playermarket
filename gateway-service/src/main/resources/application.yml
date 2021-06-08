@@ -1,5 +1,10 @@
 server.port: 8080
-spring.application.name: gateway-service
+
+spring:
+    application.name: gateway-service
+    output.ansi.enabled: ALWAYS
+
+management.endpoints.web.exposure.include: '*'
 
 eureka:
     client:
@@ -7,7 +12,6 @@ eureka:
         fetchRegistry: true
         serviceUrl.defaultZone: http://${DISCOVERY_URL}:${DISCOVERY_PORT}/eureka
     instance:
-        hostname: localhost
         preferIpAddress: true
 
 zuul:
