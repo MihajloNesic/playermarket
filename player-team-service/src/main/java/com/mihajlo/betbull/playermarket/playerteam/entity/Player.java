@@ -24,6 +24,16 @@ public class Player {
     public Player() {
     }
 
+    @Deprecated
+    public Player(Long id, String firstName, String lastName, LocalDate birthDate, LocalDate careerStartDate, PlayerStatus status) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.careerStartDate = careerStartDate;
+        this.status = status;
+    }
+
     public static Player create(String firstName, String lastName, LocalDate birthDate, LocalDate careerStartDate) {
         Player player = new Player();
         player.setFirstName(firstName);

@@ -13,6 +13,14 @@ public class PlayerResponse {
     public PlayerResponse() {
     }
 
+    public PlayerResponse(Long id, String firstName, String lastName, LocalDate birthDate, LocalDate careerStartDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.careerStartDate = careerStartDate;
+    }
+
     public Long getId() {
         return id;
     }

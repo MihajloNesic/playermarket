@@ -12,6 +12,13 @@ public class TeamResponse {
     public TeamResponse() {
     }
 
+    public TeamResponse(Long id, String name, Double commissionPercentage, Currency currency) {
+        this.id = id;
+        this.name = name;
+        this.commissionPercentage = commissionPercentage;
+        this.currency = currency;
+    }
+
     public Long getId() {
         return id;
     }

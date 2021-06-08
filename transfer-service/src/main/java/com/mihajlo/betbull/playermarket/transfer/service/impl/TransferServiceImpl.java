@@ -102,6 +102,8 @@ public class TransferServiceImpl implements TransferService {
         Transfer transfer = calculateFees(player, newTeam, transferDate, null);
         Transfer newTransfer = save(transfer);
 
+        LOGGER.info("Transfer created for player {} in team {}", playerId, request.getTeamId());
+
         return new TransferResponse(newTransfer);
     }
 
@@ -130,6 +132,8 @@ public class TransferServiceImpl implements TransferService {
         checkIfPlayerCanTransfer(playerId, newTeam, transferDate, true);
         Transfer updatedTransfer = calculateFees(player, newTeam, transferDate, playersTransfer);
         Transfer savedTransfer = save(updatedTransfer);
+
+        LOGGER.info("Transfer {} updated for player {} in team {}", transferId, playerId, request.getTeamId());
 
         return new TransferResponse(savedTransfer);
     }
