@@ -11,7 +11,6 @@ import com.mihajlo.betbull.playermarket.playerteam.model.spec.PlayerSpecificatio
 import com.mihajlo.betbull.playermarket.playerteam.repository.PlayerRepository;
 import com.mihajlo.betbull.playermarket.playerteam.service.PlayerService;
 import com.mihajlo.betbull.playermarket.playerteam.service.feign.TransferFeignService;
-import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -86,7 +85,6 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void deleteById(Long id) {
-        Preconditions.checkNotNull(id, "Player id is required");
         LOGGER.info("Deleting player with id = {}", id);
         Player player = getById(id);
         player.setStatus(PlayerStatus.DELETED);
@@ -97,10 +95,6 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerResponse createPlayer(CreatePlayerRequest request) {
-        Preconditions.checkNotNullOrEmpty(request.getFirstName(), "Player's first name is required");
-        Preconditions.checkNotNullOrEmpty(request.getLastName(), "Player's last name is required");
-        Preconditions.checkNotNull(request.getBirthDate(), "Player's birth date is required");
-
         LocalDate playerBirthDate = null;
         LocalDate careerStartDate = null;
 
@@ -123,11 +117,6 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerResponse updatePlayer(Long playerId, UpdatePlayerRequest request) {
-        Preconditions.checkNotNull(playerId, "Player id is required");
-        Preconditions.checkNotNullOrEmpty(request.getFirstName(), "Player's first name is required");
-        Preconditions.checkNotNullOrEmpty(request.getLastName(), "Player's last name is required");
-        Preconditions.checkNotNull(request.getBirthDate(), "Player's birth date is required");
-
         LocalDate playerBirthDate = null;
         LocalDate careerStartDate = null;
 

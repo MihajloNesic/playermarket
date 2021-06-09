@@ -13,7 +13,6 @@ import com.mihajlo.betbull.playermarket.transfer.model.response.TransferResponse
 import com.mihajlo.betbull.playermarket.transfer.repository.TransferRepository;
 import com.mihajlo.betbull.playermarket.transfer.service.TransferService;
 import com.mihajlo.betbull.playermarket.transfer.service.feign.PlayerTeamFeignService;
-import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -74,7 +73,6 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public void deleteById(Long id) {
-        Preconditions.checkNotNull(id, "Transfer id is required");
         LOGGER.info("Deleting transfer with id = {}", id);
         Transfer transfer = getById(id);
         transfer.setStatus(TransferStatus.DELETED);

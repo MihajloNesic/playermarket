@@ -11,6 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+
 @RestController
 @RequestMapping(Path.API)
 public class PlayerController {
@@ -36,13 +39,13 @@ public class PlayerController {
 
     @PostMapping(value = Path.PLAYERS)
     @ApiOperation("Creates a new player")
-    public ResponseEntity<PlayerResponse> createPlayer(@RequestBody CreatePlayerRequest request) {
+    public ResponseEntity<PlayerResponse> createPlayer(@Valid @RequestBody CreatePlayerRequest request) {
         return ResponseEntity.ok(playerService.createPlayer(request));
     }
 
     @PutMapping(value = Path.PLAYER_SINGLE)
     @ApiOperation("Updates an existing player")
-    public ResponseEntity<PlayerResponse> updatePlayer(@PathVariable("playerId") Long playerId, @RequestBody UpdatePlayerRequest request) {
+    public ResponseEntity<PlayerResponse> updatePlayer(@PathVariable("playerId") Long playerId, @Valid @RequestBody UpdatePlayerRequest request) {
         return ResponseEntity.ok(playerService.updatePlayer(playerId, request));
     }
 

@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(Path.API)
 public class TeamController {
@@ -36,13 +38,13 @@ public class TeamController {
 
     @PostMapping(value = Path.TEAMS)
     @ApiOperation("Creates a new team")
-    public ResponseEntity<TeamResponse> createTeam(@RequestBody CreateTeamRequest request) {
+    public ResponseEntity<TeamResponse> createTeam(@Valid @RequestBody CreateTeamRequest request) {
         return ResponseEntity.ok(teamService.createTeam(request));
     }
 
     @PutMapping(value = Path.TEAM_SINGLE)
     @ApiOperation("Updates an existing team")
-    public ResponseEntity<TeamResponse> updateTeam(@PathVariable("teamId") Long teamId, @RequestBody UpdateTeamRequest request) {
+    public ResponseEntity<TeamResponse> updateTeam(@PathVariable("teamId") Long teamId, @Valid @RequestBody UpdateTeamRequest request) {
         return ResponseEntity.ok(teamService.updateTeam(teamId, request));
     }
 

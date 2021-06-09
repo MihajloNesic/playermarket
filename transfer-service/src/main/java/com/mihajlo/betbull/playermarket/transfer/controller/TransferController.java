@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,13 +26,13 @@ public class TransferController {
 
     @PostMapping(value = Path.PLAYER_TRANSFER)
     @ApiOperation("Creates a new transfer for player")
-    public ResponseEntity<TransferResponse> createTransfer(@PathVariable("playerId") Long playerId, @RequestBody CreateTransferRequest request) {
+    public ResponseEntity<TransferResponse> createTransfer(@PathVariable("playerId") Long playerId, @Valid @RequestBody CreateTransferRequest request) {
         return ResponseEntity.ok(transferService.createTransfer(playerId, request));
     }
 
     @PutMapping(value = Path.PLAYER_TRANSFER_SINGLE)
     @ApiOperation("Updates an existing transfer for player")
-    public ResponseEntity<TransferResponse> updatePlayersTransfer(@PathVariable("playerId") Long playerId, @PathVariable("transferId") Long transferId, @RequestBody UpdateTransferRequest request) {
+    public ResponseEntity<TransferResponse> updatePlayersTransfer(@PathVariable("playerId") Long playerId, @PathVariable("transferId") Long transferId, @Valid @RequestBody UpdateTransferRequest request) {
         return ResponseEntity.ok(transferService.updateTransfer(playerId, transferId, request));
     }
 

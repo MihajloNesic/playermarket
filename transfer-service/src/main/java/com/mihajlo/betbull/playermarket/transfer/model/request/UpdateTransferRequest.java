@@ -1,8 +1,15 @@
 package com.mihajlo.betbull.playermarket.transfer.model.request;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class UpdateTransferRequest {
 
+    @NotNull(message = "Team id is required")
     private Long teamId;
+
+    @NotNull(message = "Transfer date is required")
+    @NotBlank(message = "Transfer date is required")
     private String transferDate;
 
     public UpdateTransferRequest() {

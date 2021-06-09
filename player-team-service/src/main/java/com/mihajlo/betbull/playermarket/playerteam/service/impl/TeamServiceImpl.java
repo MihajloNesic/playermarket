@@ -12,7 +12,6 @@ import com.mihajlo.betbull.playermarket.playerteam.model.spec.TeamSpecifications
 import com.mihajlo.betbull.playermarket.playerteam.repository.TeamRepository;
 import com.mihajlo.betbull.playermarket.playerteam.service.TeamService;
 import com.mihajlo.betbull.playermarket.playerteam.service.feign.TransferFeignService;
-import org.assertj.core.util.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -85,7 +84,6 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public void deleteById(Long id) {
-        Preconditions.checkNotNull(id, "Team id is required");
         LOGGER.info("Deleting team with id = {}", id);
         Team team = getById(id);
         team.setStatus(TeamStatus.DELETED);
@@ -96,10 +94,6 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamResponse createTeam(CreateTeamRequest request) {
-        Preconditions.checkNotNullOrEmpty(request.getName(), "Team name is required");
-        Preconditions.checkNotNull(request.getCommissionPercentage(), "Team's commission percentage is required");
-        Preconditions.checkNotNull(request.getCurrency(), "Team's preferred currency percentage is required");
-
         Currency currency = null;
         try {
             currency = Currency.valueOf(request.getCurrency());
@@ -118,10 +112,6 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamResponse updateTeam(Long teamId, UpdateTeamRequest request) {
-        Preconditions.checkNotNull(teamId, "Team id is required");
-        Preconditions.checkNotNullOrEmpty(request.getName(), "Team name is required");
-        Preconditions.checkNotNull(request.getCommissionPercentage(), "Team's commission percentage is required");
-
         Currency currency = null;
         try {
             currency = Currency.valueOf(request.getCurrency());
